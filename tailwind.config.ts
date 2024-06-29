@@ -9,10 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "background-gradient": "linear-gradient(178deg, #050409 32.84%, #3E658B 203.35%)",
       },
+      colors: {
+        "neutral-800": "#262626",
+        "neutral-700": "#2D2D2D",
+        "neutral-600": "#313131",
+        "neutral-100": "#9F9F9F"
+      }
     },
   },
   plugins: [],
