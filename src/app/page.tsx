@@ -102,7 +102,7 @@ export default function Home() {
         <Input
           label="Peso em kg"
           placeholder="Insira seu peso"
-          type="number"
+          type="tel"
           value={weight}
           onChange={(e) => setWeight(e.target.value === '' ? undefined : Number(e.target.value))}
           onBlur={validateWeight}
