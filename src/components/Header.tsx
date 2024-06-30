@@ -1,6 +1,10 @@
 import Image from "next/image";
 
-export default function Header() {
+interface HeaderProps {
+  title?: string;
+}
+
+export default function Header({ title = 'Informações pessoais' }: HeaderProps) {
   return (
     <div>
       <div className="flex justify-between items-center gap-2">
@@ -14,7 +18,7 @@ export default function Header() {
       </div>
       <hr className="border-neutral-900 mb-4" />
       <div className="mb-4">
-        <h3 className="text-white text-lg font-semibold">Informações pessoais</h3>
+        <h3 className="text-white text-center text-lg font-semibold">{title}</h3>
       </div>
     </div>
   )

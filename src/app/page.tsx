@@ -5,8 +5,10 @@ import Header from "@/components/Header";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import Modal from "@/components/modal";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const [name, setName] = useState<string>('');
   const [gender, setGender] = useState('');
   const [birthDate, setBirthDate] = useState('');
@@ -55,6 +57,11 @@ export default function Home() {
 
   function validateWeight() {
     setWeightError(weight && weight > 0 ? '' : 'Por favor, insira um peso válido.');
+  }
+
+  function handleContinue(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    router.push('/select-destination');
   }
 
   useEffect(() => {
@@ -109,7 +116,11 @@ export default function Home() {
         />
         {weightError && <span className="text-red-500 text-sm">{weightError}</span>}
       </div>
-      <Button title="Continuar" disabled={disable} />
+      <Button 
+        title="Continuar" 
+        disabled={disable}
+        onClick={handleContinue}
+       />
     </Modal>
   );
 }
