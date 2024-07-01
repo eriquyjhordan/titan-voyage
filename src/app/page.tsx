@@ -1,26 +1,26 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "@/components/Button";
 import Header from "@/components/Header";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import Modal from "@/components/modal";
 import { useRouter } from "next/navigation";
+import { OrderContext } from "@/context/order";
 
 export default function Home() {
   const router = useRouter();
-  const [name, setName] = useState<string>('');
-  const [gender, setGender] = useState('');
-  const [birthDate, setBirthDate] = useState('');
+  const context = useContext(OrderContext);
+  const { name, setName, gender, setGender, birthday, setBirthday, weight, setWeight } = context;
+  
   const [disable, setDisable] = useState<boolean>(true);
-  const [weight, setWeight] = useState<number>();
 
   const [nameError, setNameError] = useState<string>('');
-  const [birthDateError, setBirthDateError] = useState<string>('');
+  const [birthdayError, setBirthdayError] = useState<string>('');
   const [genderError, setGenderError] = useState<string>('');
   const [weightError, setWeightError] = useState<string>('');
 
-  function handleBirthDateChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleBirthdayChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     const date = value.replace(/\D/g, '').slice(0, 8);
     let dateArray = date.split('');
@@ -31,7 +31,7 @@ export default function Home() {
       dateArray.splice(5, 0, '/');
     }
     const formattedDate = dateArray.join('');
-    setBirthDate(formattedDate);
+    setBirthday(formattedDate);
   }
 
   function isValidDate(dateString: string): boolean {
@@ -47,8 +47,8 @@ export default function Home() {
     setNameError(hasFirstNameAndLastName ? '' : 'Por favor, insira seu nome completo.');
   }
 
-  function validateBirthDate() {
-    setBirthDateError(isValidDate(birthDate) ? '' : 'Data de nascimento inválida.');
+  function validateBirthday() {
+    setBirthdayError(isValidDate(birthday) ? '' : 'Data de nascimento inválida.');
   }
 
   function validateGender() {
@@ -66,9 +66,9 @@ export default function Home() {
 
   useEffect(() => {
     const hasFirstNameAndLastName = name.trim().split(' ').length >= 2;
-    const isFormValid = hasFirstNameAndLastName && isValidDate(birthDate) && gender !== '' && weight && weight > 0;
+    const isFormValid = hasFirstNameAndLastName && isValidDate(birthday) && gender !== '' && weight && weight > 0;
     setDisable(!isFormValid);
-  }, [name, birthDate, gender, weight]);
+  }, [name, birthday, gender, weight]);
 
   return (
     <Modal>
@@ -86,12 +86,12 @@ export default function Home() {
         <Input
           label="Data de nascimento"
           placeholder="dd/mm/yyyy"
-          onChange={handleBirthDateChange}
-          value={birthDate}
+          onChange={handleBirthdayChange}
+          value={birthday}
           type="tel"
-          onBlur={validateBirthDate}
+          onBlur={validateBirthday}
         />
-        {birthDateError && <span className="text-red-500 text-sm">{birthDateError}</span>}
+        {birthdayError && <span className="text-red-500 text-sm">{birthdayError}</span>}
         
         <Select
           label="Gênero"

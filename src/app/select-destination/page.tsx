@@ -3,21 +3,35 @@ import Button from "@/components/Button";
 import DestinationCard from "@/components/DestinationCard";
 import Header from "@/components/Header";
 import Modal from "@/components/modal";
-import { useState } from "react";
+import { OrderContext } from "@/context/order";
+import { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SelectDestination() {
+  const router = useRouter();
   const [titanChecked, setTitanChecked] = useState<boolean>(false)
   const [luaChecked, setLuaChecked] = useState<boolean>(false)
+  const { setDestination, setPrice } = useContext(OrderContext)
 
   function handleChangeDestination(destination: string) {
     if (destination === "titan") {
       setTitanChecked(!titanChecked)
       setLuaChecked(false)
+      setDestination("titan")
+      setPrice("R$ 3.2B")
     } else {
       setLuaChecked(!luaChecked)
       setTitanChecked(false)
+      setDestination("lua")
+      setPrice("R$ 1.15M")
     }
   }
+
+  function handleContinue(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    router.push('/select-entertainment');
+  }
+
   return (
     <Modal>
       <Header
@@ -44,7 +58,7 @@ export default function SelectDestination() {
           exploration="Tour pela base de lançamento"
           price="1.15M"
         />
-        <Button title="Continuar" />
+        <Button title="Continuar" disabled={!luaChecked && !titanChecked} onClick={handleContinue} />
       </div>
     </Modal>
   )
