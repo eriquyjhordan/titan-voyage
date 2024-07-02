@@ -74,14 +74,15 @@ const OrderProvider = ({ children }: OrderContextData) => {
   function planPrice(category: string) {
     switch (category) {
       case 'entertainment':
-        return { 'Básico': "R$ 1M", "Premium": "R$ 2M"}
+        return { 'Básico': "R$ 1.5M", "Premium": "R$ 2.5M"}
       case 'meal':
-        return { 'Básico': "R$ 1M" , "Premium":"R$ 2M"}
+        return { 'Básico': "R$ 2.5M" , "Premium":"R$ 5.3M"}
       case 'health':
-        return { 'Básico': "R$ 2M", "Premium": "R$ 3M"}
-      case 'room':
+        return { 'Básico': "R$ 2.1M", "Premium": "R$ 4M"}
+        case 'room':
+          return { 'Básico': "R$ 0", "Premium": "R$ 8M"}
       case 'selfcare':
-        return { 'Básico': "R$ 1M", "Premium": "R$ 3M"}
+        return { 'Básico': "R$ 920k", "Premium": "R$ 1.4M"}
       default:
         return { 'Básico': "R$ 0.00", "Premium": "R$ 0.00" }
     }
@@ -93,6 +94,7 @@ const OrderProvider = ({ children }: OrderContextData) => {
     meal,
     entertainment,
     selfcare
+
   })
 
   const value: OrderContextValue = {
