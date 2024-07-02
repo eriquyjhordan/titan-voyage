@@ -21,8 +21,8 @@ const PlanCard: React.FC<PlanCardProps> = ({ title, description, price, features
     <div className="flex flex-col gap-2 w-full rounded-lg shadow-md p-6 text-white border border-neutral-100">
       <h2 className="text-2xl font-bold">{title}</h2>
       <p className="text-gray-400 mb-4">{description}</p>
-      <div className="text-4xl font-bold mb-4">
-        {price} <span className="text-xl -ml-2">/dia</span>
+      <div className="text-2xl font-bold mb-4">
+        {price} <span className="text-base -ml-1">/dia</span>
       </div>
       <button className={buttonStyle} onClick={onSelect}> 
         {buttonText}

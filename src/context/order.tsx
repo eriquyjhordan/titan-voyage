@@ -30,6 +30,7 @@ interface OrderContextValue {
   setRoom: React.Dispatch<React.SetStateAction<string>>;
   selfcare: string;
   setSelfcare: React.Dispatch<React.SetStateAction<string>>;
+  planPrice: (category: string) => { [key in "Básico" | "Premium"]: string };
 }
 
 const OrderContext = createContext<OrderContextValue>({} as OrderContextValue);
@@ -70,6 +71,30 @@ const OrderProvider = ({ children }: OrderContextData) => {
     return `R$ ${value.toFixed(2)}`;
   }
 
+  function planPrice(category: string) {
+    switch (category) {
+      case 'entertainment':
+        return { 'Básico': "R$ 1M", "Premium": "R$ 2M"}
+      case 'meal':
+        return { 'Básico': "R$ 1M" , "Premium":"R$ 2M"}
+      case 'health':
+        return { 'Básico': "R$ 2M", "Premium": "R$ 3M"}
+      case 'room':
+      case 'selfcare':
+        return { 'Básico': "R$ 1M", "Premium": "R$ 3M"}
+      default:
+        return { 'Básico': "R$ 0.00", "Premium": "R$ 0.00" }
+    }
+  }
+
+  console.log({
+    room,
+    health,
+    meal,
+    entertainment,
+    selfcare
+  })
+
   const value: OrderContextValue = {
     name,
     setName,
@@ -95,6 +120,7 @@ const OrderProvider = ({ children }: OrderContextData) => {
     setRoom,
     selfcare,
     setSelfcare,
+    planPrice
   };
 
   return (

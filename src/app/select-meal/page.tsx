@@ -9,10 +9,10 @@ import { useRouter } from "next/navigation";
 
 export default function SelectMeal() {
   const router = useRouter();
-  const { price, setPrice, destination, parsePrice, formatPrice, meal, setMeal } = useContext(OrderContext);
+  const { price, setPrice, destination, parsePrice, formatPrice, meal, setMeal, planPrice } = useContext(OrderContext);
   const [selectedPlan, setSelectedPlan] = useState<string>(meal);
 
-  const planPrices: { [key in "Básico" | "Premium"]: string } = { "Básico": "R$ 800k", "Premium": "R$ 1.2M" };
+  const planPrices: { [key in "Básico" | "Premium"]: string } = planPrice("meal");
 
   const handleSelectPlan = (plan: "Básico" | "Premium") => {
     if (plan === selectedPlan) return; // Exit if the selected plan hasn't changed

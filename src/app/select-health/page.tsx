@@ -9,11 +9,10 @@ import { useRouter } from "next/navigation";
 
 export default function SelectHealth() {
   const router = useRouter();
-  const { price, setPrice, destination, parsePrice, formatPrice, health, setHealth } = useContext(OrderContext);
+  const { price, setPrice, destination, parsePrice, formatPrice, health, setHealth, planPrice } = useContext(OrderContext);
   const [selectedPlan, setSelectedPlan] = useState<string>(health);
 
-  const planPrices: { [key in "Básico" | "Premium"]: string } = { "Básico": "R$ 800k", "Premium": "R$ 1.2M" };
-
+  const planPrices: { [key in "Básico" | "Premium"]: string } = planPrice("health");
   const handleSelectPlan = (plan: "Básico" | "Premium") => {
     if (plan === selectedPlan) return;
 

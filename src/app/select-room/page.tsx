@@ -9,10 +9,10 @@ import { useRouter } from "next/navigation";
 
 export default function SelectRoom() {
   const router = useRouter();
-  const { price, setPrice, destination, parsePrice, formatPrice, room, setRoom } = useContext(OrderContext);
+  const { price, setPrice, destination, parsePrice, formatPrice, room, setRoom, planPrice } = useContext(OrderContext);
   const [selectedPlan, setSelectedPlan] = useState<string>(room);
 
-  const planPrices: { [key in "Básico" | "Premium"]: string } = { "Básico": "R$ 800k", "Premium": "R$ 1.2M" };
+  const planPrices: { [key in "Básico" | "Premium"]: string } = planPrice("room");
 
   const handleSelectPlan = (plan: "Básico" | "Premium") => {
     if (plan === selectedPlan) return;
@@ -42,13 +42,13 @@ export default function SelectRoom() {
 
   function handleContinue(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    router.push('/select-room');
+    router.push('/select-meal');
   }
 
   return (
     <Modal>
       <Header 
-        title="Escolha o seguro saúde"
+        title="Escolha sua acomodação"
         price={price}
       />
       <div className="flex flex-col gap-5">

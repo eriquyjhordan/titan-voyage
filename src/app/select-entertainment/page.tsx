@@ -9,10 +9,10 @@ import Button from "@/components/Button";
 
 export default function SelectEntertainment() {
   const router = useRouter();
-  const { price, setPrice, destination, parsePrice, formatPrice, entertainment, setEntertainment } = useContext(OrderContext);
+  const { price, setPrice, destination, parsePrice, formatPrice, entertainment, setEntertainment, planPrice } = useContext(OrderContext);
   const [selectedPlan, setSelectedPlan] = useState(entertainment);
 
-  const planPrices: { [key in "Básico" | "Premium"]: string } = { "Básico": "R$ 38", "Premium": "R$ 68.50" };
+  const planPrices: { [key in "Básico" | "Premium"]: string } = planPrice("entertainment")
 
   const handleSelectPlan = (plan: "Básico" | "Premium") => {
     if (plan === selectedPlan) return; // Exit if the selected plan hasn't changed
@@ -34,7 +34,7 @@ export default function SelectEntertainment() {
 
   function handleContinue(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    router.push('/select-meal');
+    router.push('/select-room');
   }
 
   return (

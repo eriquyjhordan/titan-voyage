@@ -9,10 +9,10 @@ import { useRouter } from "next/navigation";
 
 export default function SelectSelfcare() {
   const router = useRouter();
-  const { price, setPrice, destination, parsePrice, formatPrice, selfcare, setSelfcare } = useContext(OrderContext);
+  const { price, setPrice, destination, parsePrice, formatPrice, selfcare, setSelfcare, planPrice } = useContext(OrderContext);
   const [selectedPlan, setSelectedPlan] = useState<string>(selfcare);
 
-  const planPrices: { [key in "Básico" | "Premium"]: string } = { "Básico": "R$ 800k", "Premium": "R$ 1.2M" };
+  const planPrices: { [key in "Básico" | "Premium"]: string } = planPrice("selfcare");
 
   const handleSelectPlan = (plan: "Básico" | "Premium") => {
     if (plan === selectedPlan) return;
