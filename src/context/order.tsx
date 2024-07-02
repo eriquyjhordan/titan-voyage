@@ -20,6 +20,16 @@ interface OrderContextValue {
   setPrice: React.Dispatch<React.SetStateAction<string>>;
   parsePrice: (price: string) => number;
   formatPrice: (value: number) => string;
+  entertainment: string;
+  setEntertainment: React.Dispatch<React.SetStateAction<string>>;
+  meal: string;
+  setMeal: React.Dispatch<React.SetStateAction<string>>;
+  health: string;
+  setHealth: React.Dispatch<React.SetStateAction<string>>;
+  room: string;
+  setRoom: React.Dispatch<React.SetStateAction<string>>;
+  selfcare: string;
+  setSelfcare: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const OrderContext = createContext<OrderContextValue>({} as OrderContextValue);
@@ -31,6 +41,12 @@ const OrderProvider = ({ children }: OrderContextData) => {
   const [weight, setWeight] = useState<number | undefined>(undefined);
   const [destination, setDestination] = useState<string>("");
   const [price, setPrice] = useState<string>("R$ 0.00");
+  const [entertainment, setEntertainment] = useState<string>("");
+  const [meal, setMeal] = useState<string>("");
+  const [health, setHealth] = useState<string>("");
+  const [room, setRoom] = useState<string>("");
+  const [selfcare, setSelfcare] = useState<string>("");
+
 
   function parsePrice(price: string): number {
     const units: { [key: string]: number } = { 'K': 1e3, 'M': 1e6, 'B': 1e9 };
@@ -69,6 +85,16 @@ const OrderProvider = ({ children }: OrderContextData) => {
     setPrice,
     parsePrice,
     formatPrice,
+    entertainment,
+    setEntertainment,
+    meal,
+    setMeal,
+    health,
+    setHealth,
+    room,
+    setRoom,
+    selfcare,
+    setSelfcare,
   };
 
   return (
