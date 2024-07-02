@@ -5,27 +5,58 @@ import PackageCard from "@/components/selectedPlanCard";
 import { OrderContext } from "@/context/order";
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient('https://dknjilieeiasicsinyst.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrbmppbGllZWlhc2ljc2lueXN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTk5MTk1MTcsImV4cCI6MjAzNTQ5NTUxN30.wwhdDRiuftdoG4fouMiX5Vt6YU6TOPv3nQSZ3iLz6js')
 
 
 export default function Resume() {
-  const { 
-    destination, 
-    price, 
-    planPrice, 
+  const {
+    destination,
+    price,
+    planPrice,
     meal,
     entertainment,
     selfcare,
     health,
     room,
+    name,
+    birthday,
+    weight,
+    gender,
+  } = useContext(OrderContext);
 
-   } = useContext(OrderContext);
-  
-   const router = useRouter();
-  const planPrices: any= planPrice("meal")
-  const entertainmentPlanPrices: any= planPrice("entertainment")
-  const healthPlanPrices: any= planPrice("health")
-  const roomPlanPrices: any= planPrice("room")
-  const selfcarePlanPrices: any= planPrice("selfcare")
+  const router = useRouter();
+  const planPrices: any = planPrice("meal")
+  const entertainmentPlanPrices: any = planPrice("entertainment")
+  const healthPlanPrices: any = planPrice("health")
+  const roomPlanPrices: any = planPrice("room")
+  const selfcarePlanPrices: any = planPrice("selfcare")
+
+  async function handleSubmit() {
+    const { data, error } = await supabase
+      .from('orders')
+      .insert([
+        {
+          name,
+          // birthday: dd/mm/yyyy to yyyy-mm-dd,
+          birthday: birthday.split('/').reverse().join('-'),
+          weight,
+          gender,
+          destination,
+          room,
+          meal,
+          entertainment,
+          selfcare,
+          health,
+          price
+        }
+      ])
+    if (error) {
+      console.error(error)
+    }
+    window.open('https://pyleyiwcydiznmrilviu.supabase.co/storage/v1/object/public/bucket/White_Blue_Simple_Modern_Boarding_Pass_Ticket__1_.pdf', '_blank')
+  }
 
   return (
     <Modal imageUrl={destination === 'lua' ? '/base-lunar.png' : 'titan.png'}>
@@ -66,10 +97,10 @@ export default function Resume() {
           <div className="text-2xl text-white mt-4 mb-6">
             Valor total: <span className="text-[#6960EE] font-bold">{price}</span>
           </div>
-          <Button 
-            title="Emitir passagem" 
+          <Button
+            title="Emitir passagem"
             disabled={false}
-            onClick={() => window.open('https://pyleyiwcydiznmrilviu.supabase.co/storage/v1/object/public/bucket/White_Blue_Simple_Modern_Boarding_Pass_Ticket__1_.pdf', '_blank')}
+            onClick={handleSubmit}
           />
 
         </div>
