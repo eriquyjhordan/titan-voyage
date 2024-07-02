@@ -21,11 +21,11 @@ export default function Resume() {
    } = useContext(OrderContext);
   
    const router = useRouter();
-  const planPrices: { [key in "Básico" | "Premium"]: string } = planPrice("meal")
-  const entertainmentPlanPrices: { [key in "Básico" | "Premium"]: string } = planPrice("entertainment")
-  const healthPlanPrices: { [key in "Básico" | "Premium"]: string } = planPrice("health")
-  const roomPlanPrices: { [key in "Básico" | "Premium"]: string } = planPrice("room")
-  const selfcarePlanPrices: { [key in "Básico" | "Premium"]: string } = planPrice("selfcare")
+  const planPrices: any= planPrice("meal")
+  const entertainmentPlanPrices: any= planPrice("entertainment")
+  const healthPlanPrices: any= planPrice("health")
+  const roomPlanPrices: any= planPrice("room")
+  const selfcarePlanPrices: any= planPrice("selfcare")
 
   return (
     <Modal imageUrl={destination === 'lua' ? '/base-lunar.png' : 'titan.png'}>
